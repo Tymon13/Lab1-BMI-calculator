@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">BMI calculator</string>
+    <string name="mass">Mass</string>
+    <string name="mass_unit_metric">kg</string>
+    <string name="mass_unit_imperial">lbs</string>
+    <string name="height">Height</string>
+    <string name="height_unit_metric">cm</string>
+    <string name="height_unit_imperial">in</string>
+    <string name="calculate_button">Calculate</string>
 </resources>
