@@ -3,6 +3,7 @@ package pl.edu.pwr.lab1.i238162;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
+        menu.setGroupDividerEnabled(true);
         return true;
     }
 
@@ -53,6 +55,17 @@ public class MainActivity extends AppCompatActivity {
 
         TextView heightText = findViewById(R.id.heightText);
         heightText.setText(getString(R.string.height, calculator.getHeightUnit(this)));
+    }
+
+    public void showCreditsDialog(MenuItem item) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage(R.string.credits_content)
+                .setTitle(R.string.credits_title)
+                .setPositiveButton(R.string.credits_button_ok, null);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     public void doCalculation(View v) {

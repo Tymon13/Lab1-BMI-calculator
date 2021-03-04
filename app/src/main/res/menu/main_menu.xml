@@ -12,4 +12,9 @@
             android:id="@+id/imperial_menu_item"
             android:title="@string/imperial" />
     </group>
+    <group android:id="@+id/misc_menu_group">
+        <item
+            android:onClick="showCreditsDialog"
+            android:title="@string/credits" />
+    </group>
 </menu>

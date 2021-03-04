@@ -9,4 +9,8 @@
     <string name="calculate_button">Calculate</string>
     <string name="metric">Metric</string>
     <string name="imperial">Imperial</string>
+    <string name="credits">Credits</string>
+    <string name="credits_title">Credits</string>
+    <string name="credits_content">BMI calculator created by\nKamil Tymiński</string>
+    <string name="credits_button_ok">Ok</string>
 </resources>
