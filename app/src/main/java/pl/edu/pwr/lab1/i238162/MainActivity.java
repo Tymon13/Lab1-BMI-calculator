@@ -9,19 +9,17 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    private IBmiCalculator calculator = new MetricBmiCalculator();
+    private IBmiCalculator calculator = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setDisplayedUnits();
-        enableCalculateButton();
+        updateCalculator(new MetricBmiCalculator());
     }
 
     @Override
@@ -35,13 +33,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.metric_menu_item) {
-            calculator = new MetricBmiCalculator();
-            setDisplayedUnits();
+            updateCalculator(new MetricBmiCalculator());
             item.setChecked(true);
             return true;
         } else if (id == R.id.imperial_menu_item) {
-            calculator = new ImperialBmiCalculator();
-            setDisplayedUnits();
+            updateCalculator(new ImperialBmiCalculator());
             item.setChecked(true);
             return true;
         } else {
@@ -49,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setDisplayedUnits() {
+    private void updateCalculator(IBmiCalculator newCalculator) {
+        calculator = newCalculator;
+
         TextView massText = findViewById(R.id.massText);
         massText.setText(getString(R.string.mass, calculator.getMassUnit(this)));
 
@@ -57,40 +55,42 @@ public class MainActivity extends AppCompatActivity {
         heightText.setText(getString(R.string.height, calculator.getHeightUnit(this)));
     }
 
-    private void enableCalculateButton() {
-        Button calculateButton = findViewById(R.id.calculateButton);
-        calculateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hideKeyboard();
-                double mass = getDoubleFromInputField(R.id.massInputField);
-                double height = getDoubleFromInputField(R.id.heightInputField);
-                double bmi = calculator.calculate(mass, height);
-                TextView bmiOutput = findViewById(R.id.bmiValueText);
-                bmiOutput.setText(String.valueOf(bmi));
-            }
+    public void doCalculation(View v) {
+        CalculateButtonAction buttonAction = new CalculateButtonAction();
+        buttonAction.onClick(v);
+    }
 
-            private double getDoubleFromInputField(int inputFieldId) {
-                EditText inputField = findViewById(inputFieldId);
-                String input = inputField.getText().toString();
-                if (input == null || input.isEmpty()) {
-                    return 0.0;
-                } else {
-                    return Double.parseDouble(input);
-                }
-            }
+    private class CalculateButtonAction implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            hideKeyboard();
+            double mass = getDoubleFromInputField(R.id.massInputField);
+            double height = getDoubleFromInputField(R.id.heightInputField);
+            double bmi = calculator.calculate(mass, height);
+            TextView bmiOutput = findViewById(R.id.bmiValueText);
+            bmiOutput.setText(String.valueOf(bmi));
+        }
 
-            // stolen shamelessly from https://stackoverflow.com/a/17789187
-            private void hideKeyboard() {
-                InputMethodManager imm = (InputMethodManager) MainActivity.this.getSystemService(Activity.INPUT_METHOD_SERVICE);
-                //Find the currently focused view, so we can grab the correct window token from it.
-                View view = MainActivity.this.getCurrentFocus();
-                //If no view currently has focus, create a new one, just so we can grab a window token from it
-                if (view == null) {
-                    view = new View(MainActivity.this);
-                }
-                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        private double getDoubleFromInputField(int inputFieldId) {
+            EditText inputField = findViewById(inputFieldId);
+            String input = inputField.getText().toString();
+            if (input == null || input.isEmpty()) {
+                return 0.0;
+            } else {
+                return Double.parseDouble(input);
             }
-        });
+        }
+
+        // stolen shamelessly from https://stackoverflow.com/a/17789187
+        private void hideKeyboard() {
+            InputMethodManager imm = (InputMethodManager) MainActivity.this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+            //Find the currently focused view, so we can grab the correct window token from it.
+            View view = MainActivity.this.getCurrentFocus();
+            //If no view currently has focus, create a new one, just so we can grab a window token from it
+            if (view == null) {
+                view = new View(MainActivity.this);
+            }
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }
