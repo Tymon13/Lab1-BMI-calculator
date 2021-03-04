@@ -9,7 +9,7 @@
             android:checked="true"
             android:title="@string/metric" />
         <item
-            android:id="@+id/imperial_menu_tem"
+            android:id="@+id/imperial_menu_item"
             android:title="@string/imperial" />
     </group>
 </menu>

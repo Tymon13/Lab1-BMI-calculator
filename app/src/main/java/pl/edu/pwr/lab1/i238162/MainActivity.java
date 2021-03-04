@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -13,7 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    private final IBmiCalculator calculator = new MetricBmiCalculator();
+    private IBmiCalculator calculator = new MetricBmiCalculator();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,24 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.metric_menu_item) {
+            calculator = new MetricBmiCalculator();
+            setDisplayedUnits();
+            item.setChecked(true);
+            return true;
+        } else if (id == R.id.imperial_menu_item) {
+            calculator = new ImperialBmiCalculator();
+            setDisplayedUnits();
+            item.setChecked(true);
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     private void setDisplayedUnits() {
