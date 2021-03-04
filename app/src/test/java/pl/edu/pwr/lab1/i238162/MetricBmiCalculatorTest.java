@@ -20,8 +20,7 @@ public class MetricBmiCalculatorTest extends TestCase {
         Assert.assertEquals(65, highestBmi, 1);
     }
 
-    public void testNoCrashWhenZeroHeightIsEntered()
-    {
+    public void testNoCrashWhenZeroHeightIsEntered() {
         MetricBmiCalculator uut = new MetricBmiCalculator();
         uut.calculate(13, 0);
     }

@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    private IBmiCalculator calculator = new MetricBmiCalculator();
+    private final IBmiCalculator calculator = new MetricBmiCalculator();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,10 +23,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void setDisplayedUnits() {
         TextView massText = findViewById(R.id.massText);
-        massText.setText(getString(R.string.mass, getString(R.string.mass_unit_metric)));
+        massText.setText(getString(R.string.mass, calculator.getMassUnit(this)));
 
         TextView heightText = findViewById(R.id.heightText);
-        heightText.setText(getString(R.string.height, getString(R.string.height_unit_metric)));
+        heightText.setText(getString(R.string.height, calculator.getHeightUnit(this)));
     }
 
     private void enableCalculateButton() {

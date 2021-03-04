@@ -20,8 +20,7 @@ public class ImperialBmiCalculatorTest extends TestCase {
         Assert.assertEquals(65, highestBmi, 1);
     }
 
-    public void testNoCrashWhenZeroHeightIsEntered()
-    {
+    public void testNoCrashWhenZeroHeightIsEntered() {
         ImperialBmiCalculator uut = new ImperialBmiCalculator();
         uut.calculate(13, 0);
     }
