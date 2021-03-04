@@ -7,4 +7,6 @@
     <string name="height_unit_metric">cm</string>
     <string name="height_unit_imperial">in</string>
     <string name="calculate_button">Calculate</string>
+    <string name="metric">Metric</string>
+    <string name="imperial">Imperial</string>
 </resources>
