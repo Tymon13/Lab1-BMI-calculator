@@ -7,4 +7,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="VERY_SEVERELY_UNDERWEIGHT">#FF082E79</color>
+    <color name="SEVERELY_UNDERWEIGHT">#FF4169E1</color>
+    <color name="UNDERWEIGHT">#FFACE1AF</color>
+    <color name="NORMAL">#FFCDEBA7</color>
+    <color name="OVERWEIGHT">#FFFFFF99</color>
+    <color name="MODERATELY_OBESE">#FFFDE456</color>
+    <color name="SEVERELY_OBESE">#FFCF2929</color>
+    <color name="VERY_SEVERELY_OBESE">#FF801818</color>
 </resources>

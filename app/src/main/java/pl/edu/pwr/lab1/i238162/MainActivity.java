@@ -82,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
             double bmi = calculator.calculate(mass, height);
             TextView bmiOutput = findViewById(R.id.bmiValueText);
             bmiOutput.setText(String.valueOf(bmi));
+            BmiCategory category = BmiCategory.valueOfBmi(bmi);
+            bmiOutput.setBackgroundColor(category.getColour(MainActivity.this));
         }
 
         private double getDoubleFromInputField(int inputFieldId) {
