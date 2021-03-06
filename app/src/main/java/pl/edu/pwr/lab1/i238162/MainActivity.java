@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,8 +15,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
     private IBmiCalculator calculator = null;
+    private double bmiValue = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         builder.setMessage(R.string.credits_content)
                 .setTitle(R.string.credits_title)
-                .setPositiveButton(R.string.credits_button_ok, null);
+                .setPositiveButton(R.string.dialog_button_ok, null);
 
         AlertDialog dialog = builder.create();
         dialog.show();
@@ -79,17 +84,17 @@ public class MainActivity extends AppCompatActivity {
             hideKeyboard();
             double mass = getDoubleFromInputField(R.id.massInputField);
             double height = getDoubleFromInputField(R.id.heightInputField);
-            double bmi = calculator.calculate(mass, height);
+            bmiValue = calculator.calculate(mass, height);
             TextView bmiOutput = findViewById(R.id.bmiValueText);
-            bmiOutput.setText(String.valueOf(bmi));
-            BmiCategory category = BmiCategory.valueOfBmi(bmi);
+            bmiOutput.setText(String.format(Locale.getDefault(), "%.1f", bmiValue));
+            BmiCategory category = BmiCategory.valueOfBmi(bmiValue);
             bmiOutput.setBackgroundColor(category.getColour(MainActivity.this));
         }
 
         private double getDoubleFromInputField(int inputFieldId) {
             EditText inputField = findViewById(inputFieldId);
             String input = inputField.getText().toString();
-            if (input == null || input.isEmpty()) {
+            if (input.isEmpty()) {
                 return 0.0;
             } else {
                 return Double.parseDouble(input);
@@ -106,6 +111,32 @@ public class MainActivity extends AppCompatActivity {
                 view = new View(MainActivity.this);
             }
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+    public void showBmiExplanation(View v) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        builder.setView(inflater.inflate(R.layout.bmi_explanation_dialog_layout, null))
+                .setPositiveButton(R.string.dialog_button_ok, null);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        updateBmiExplanationValues(dialog);
+    }
+
+    private void updateBmiExplanationValues(Dialog d) {
+        TextView bmiValueText = d.findViewById(R.id.bmi_explanation_value_textview);
+        bmiValueText.setText(String.format(Locale.getDefault(), "%.1f", bmiValue));
+
+        BmiCategory category = BmiCategory.valueOfBmi(bmiValue);
+        TextView bmiCategoryText = d.findViewById(R.id.bmi_explanation_description_textview);
+        bmiCategoryText.setText(category.getLabel(this));
+
+        if (category == BmiCategory.NORMAL) {
+            TextView congratsText = d.findViewById(R.id.bmi_explanation_congrats_textview);
+            congratsText.setVisibility(View.VISIBLE);
         }
     }
 }

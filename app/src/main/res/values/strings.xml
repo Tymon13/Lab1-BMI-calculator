@@ -7,6 +7,7 @@
     <string name="height_unit_metric">cm</string>
     <string name="height_unit_imperial">in</string>
     <string name="calculate_button">Calculate</string>
+    <string name="dialog_button_ok">Ok</string>
 
     <string name="metric">Metric</string>
     <string name="imperial">Imperial</string>
@@ -14,7 +15,6 @@
 
     <string name="credits_title">Credits</string>
     <string name="credits_content">BMI calculator created by\nKamil Tymiński</string>
-    <string name="credits_button_ok">Ok</string>
 
     <string name="VERY_SEVERELY_UNDERWEIGHT">Very severely underweight</string>
     <string name="SEVERELY_UNDERWEIGHT">Severely underweight</string>
@@ -24,4 +24,8 @@
     <string name="MODERATELY_OBESE">Moderately obese</string>
     <string name="SEVERELY_OBESE">Severely obese</string>
     <string name="VERY_SEVERELY_OBESE">Very severely obese</string>
+
+    <string name="bmi_explanation_pre_value">Your BMI is</string>
+    <string name="bmi_explanation_pre_explanation">which means that according to WHO you are</string>
+    <string name="bmi_explanation_congratulations">Keep it up!</string>
 </resources>
